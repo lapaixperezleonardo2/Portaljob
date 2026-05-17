@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portal Job - Registro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register-styles.css') }}">
+    <link rel="icon" href="assets/icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/icons/favicon-64.png">
+</head>
+
+<body>
+<div class="register-container">
+    <img src="assets/images/logo2.jpg" class="logo-img" />
+    <h1 class="logo">Portal Job</h1>
+    <p class="subtitle">Crea tu cuenta</p>
+
+<form method="post" action="{{ url_for('register') }}" id="registerForm">
+    <div class="input-group">
+        <label>Nombre</label>
+        <input type="text" id="name" name="name" required />
+    </div>
+
+    <div class="input-group">
+        <label>Apellido</label>
+        <input type="text" id="lastname" name="last_name" required />
+    </div>
+
+    <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="email" name="email" required />
+    </div>
+
+    <div class="input-group">
+        <label>Fecha de nacimiento</label>
+        <input type="date" id="birthdate" name="birth_date" required />
+    </div>
+
+    <div class="input-group">
+        <label>Contraseña</label>
+        <input type="password" id="password" name="password" required />
+    </div>
+
+    <div class="input-group">
+        <label>Confirmar contraseña</label>
+        <input type="password" id="confirmPassword" name=".get" required />
+    </div>
+
+    <button type="submit" class="register-btn">Crear cuenta</button>
+</form>
+
+        <p class="register-text">¿Ya tienes cuenta? <a href="login.html">Iniciar sesión</a></p>
+</div>
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</body>
+</html>

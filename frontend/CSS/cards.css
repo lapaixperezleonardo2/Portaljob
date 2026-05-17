@@ -1,0 +1,85 @@
+.job-card{
+background:#181820;
+padding:20px;
+border-radius:10px;
+border:1px solid #24242e;
+transition:all 0.25s ease;
+cursor:pointer;
+position:relative;
+}
+
+.job-card:hover{
+transform:translateY(-6px);
+box-shadow:0 10px 25px rgba(0,0,0,0.6);
+border-color:#c62828;
+}
+
+/* HEADER */
+
+.job-title{
+color:#e53935;
+margin:0;
+}
+
+.company-name{
+color:#b0b0b0;
+font-size:14px;
+margin-bottom:10px;
+}
+
+/* INFO */
+
+.job-info{
+display:flex;
+flex-direction:column;
+gap:5px;
+font-size:14px;
+margin-bottom:15px;
+color:#d0d0d0;
+}
+
+/* BOTONES */
+
+.job-actions{
+display:flex;
+gap:10px;
+}
+
+/* BOTON DETALLES */
+
+.details-btn{
+background:#24242e;
+border:none;
+padding:8px 8px;
+color:white;
+border-radius:6px;
+cursor:pointer;
+transition:all 0.2s ease;
+text-decoration:none;
+display:inline-block;
+text-align:center;
+font-size:14px;
+}
+
+.details-btn:hover{
+background:#2f2f3a;
+transform:scale(1.05);
+box-shadow:0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* BOTON APLICAR */
+
+.apply-btn{
+background:#c62828;
+border:none;
+padding:8px 14px;
+color:white;
+border-radius:6px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.apply-btn:hover{
+background:#e53935;
+transform:scale(1.05);
+}

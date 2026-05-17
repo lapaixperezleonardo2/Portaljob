@@ -1,0 +1,61 @@
+main {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 30px;
+    padding: 40px;
+}
+
+.jobs-container{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+gap:20px;
+}
+
+.sidebar {
+    background: #181820;
+    padding: 20px;
+    border-radius: 8px;
+    height: fit-content;
+}
+
+.jobs-page{
+display:grid;
+grid-template-columns:250px 1fr;
+gap:30px;
+padding:40px;
+}
+
+/* PANEL FILTROS */
+
+.filters-panel{
+background:#181820;
+padding:20px;
+border-radius:10px;
+height:fit-content;
+}
+
+.filters-panel h3{
+margin-bottom:15px;
+}
+
+.filters-panel label{
+display:block;
+margin-top:10px;
+font-size:14px;
+color:#b0b0b0;
+}
+
+.filters-panel select{
+width:100%;
+padding:8px;
+margin-top:5px;
+background:#24242e;
+border:none;
+color:white;
+border-radius:6px;
+}
+
+/* LISTA TRABAJOS */
+.jobs-list h2{
+margin-bottom:20px;
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Trabajos - Portal Job</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cards.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='assets/icons/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        src="{{ url_for('static', filename='assets/icons/favicon-32.png') }}">
+    <link rel="icon" type="image/png" sizes="64x64"
+        src="{{ url_for('static', filename='assets/icons/favicon-64.png') }}">
+</head>
+
+<body>
+
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Portal Job</h2>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="{{ url_for('home') }}">🏠 Inicio</a>
+            <a href="{{ url_for('jobs') }}">💼 Trabajos</a>
+            <a href="{{ url_for('profile_page') }}">👤 Mi perfil</a>
+            <a href="{{ url_for('favorites_page') }}">⭐ Favoritos</a>
+            <a href="{{ url_for('login_page') }}">🚪 Cerrar sesión</a>
+        </nav>
+    </div>
+    <div id="overlay" class="overlay"></div>
+
+    <header>
+
+        <div class="navbar">
+            <button id="menu-btn" class="menu-btn">☰</button>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='assets/icons/favicon-32.png') }}">
+                <span>Portal Job</span>
+            </div>
+        </div>
+
+    </header>
+
+
+    <main class="jobs-page">
+        <section class="jobs-list">
+
+            <!-- ===================== -->
+            <!-- MIS TRABAJOS -->
+            <!-- ===================== -->
+            <h2>📋 Mis trabajos</h2>
+
+            <div class="jobs-container">
+                {% if my_jobs %}
+                {% for job in my_jobs %}
+                <div class="job-card">
+                    <h3>{{ job.title }}</h3>
+                    <p>{{ job.location }}</p>
+                    <p>RD${{ job.salary }}</p>
+
+                    <div class="job-actions">
+                        <a class="action-btn edit-btn" href="{{ url_for('edit_job_page', id=job.id) }}">
+                            Editar
+                        </a>
+                        <a class="action-btn applications-btn" href="{{ url_for('view_applications', job_id=job.id) }}">
+                            Postulaciones
+                        </a>
+
+                        <form action="{{ url_for('delete_job', id=job.id) }}" method="POST">
+                            <button class="action-btn delete-btn">
+                                Eliminar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>No has creado trabajos aún.</p>
+                {% endif %}
+            </div>
+
+
+            <!-- ===================== -->
+            <!-- TRABAJOS APLICADOS -->
+            <!-- ===================== -->
+            <h2>📨 Trabajos a los que aplicaste</h2>
+
+            <div class="jobs-container">
+                {% if applied_jobs %}
+                {% for job in applied_jobs %}
+                <div class="job-card">
+                    <h3>{{ job.title }}</h3>
+                    <p>{{ job.location }}</p>
+                    <p>RD${{ job.salary }}</p>
+
+                    <a href="{{ url_for('job_detail', id=job.id) }}">Ver detalles</a>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>No has aplicado a ningún trabajo.</p>
+                {% endif %}
+            </div>
+
+        </section>
+    </main>
+
+
+    <footer>
+        <p>© 2026 Portal Job</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/jobs.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+
+</body>
+
+</html>

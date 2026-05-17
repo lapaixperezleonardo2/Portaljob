@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Favoritos - Portal Job</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cards.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/navbar.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='assets/icons/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        src="{{ url_for('static', filename='assets/icons/favicon-32.png') }}">
+    <link rel="icon" type="image/png" sizes="64x64"
+        src="{{ url_for('static', filename='assets/icons/favicon-64.png') }}">
+</head>
+
+<body>
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Portal Job</h2>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="{{ url_for('home') }}">🏠 Inicio</a>
+            <a href="{{ url_for('jobs') }}">💼 Trabajos</a>
+            <a href="{{ url_for('profile_page') }}">👤 Mi perfil</a>
+            <a href="{{ url_for('favorites_page') }}">⭐ Favoritos</a>
+            <a href="{{ url_for('login_page') }}">🚪 Cerrar sesión</a>
+        </nav>
+    </div>
+    <div id="overlay" class="overlay"></div>
+
+    <header>
+
+        <div class="navbar">
+            <button id="menu-btn" class="menu-btn">☰</button>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='assets/icons/favicon-32.png') }}">
+                <span>Portal Job</span>
+            </div>
+        </div>
+
+    </header>
+
+<h2 style="padding:20px;">⭐ Mis trabajos favoritos</h2>
+
+<div class="jobs-container">
+
+    {% if jobs %}
+        {% for job in jobs %}
+        <div class="job-card">
+            <h3>{{ job.title }}</h3>
+            <p>{{ job.location }}</p>
+            <p>RD${{ job.salary }}</p>
+
+            <a href="{{ url_for('job_detail', id=job.id) }}">Ver detalles</a>
+
+            <form action="{{ url_for('remove_favorite', job_id=job.id) }}" method="POST">
+                <button class="cancel-btn">❌ Quitar</button>
+            </form>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No tienes trabajos guardados.</p>
+    {% endif %}
+
+</div>
+
+    <script src="{{ url_for('static', filename='js/jobs.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+
+</body>
+</html>

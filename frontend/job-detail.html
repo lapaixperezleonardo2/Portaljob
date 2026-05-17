@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Trabajo</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/apply.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/job-detail.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='assets/icons/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        src="{{ url_for('static', filename='assets/icons/favicon-32.png') }}">
+    <link rel="icon" type="image/png" sizes="64x64"
+        src="{{ url_for('static', filename='assets/icons/favicon-64.png') }}">
+</head>
+
+<body>
+
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Portal Job</h2>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="{{ url_for('home') }}">🏠 Inicio</a>
+            <a href="{{ url_for('jobs') }}">💼 Trabajos</a>
+            <a href="{{ url_for('profile_page') }}">👤 Mi perfil</a>
+            <a href="{{ url_for('favorites_page') }}">⭐ Favoritos</a>
+            <a href="{{ url_for('login_page') }}">🚪 Cerrar sesión</a>
+        </nav>
+    </div>
+    <div id="overlay" class="overlay"></div>
+
+    <header>
+
+        <div class="navbar">
+            <button id="menu-btn" class="menu-btn">☰</button>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='assets/icons/favicon-32.png') }}">
+                <span>Portal Job</span>
+            </div>
+        </div>
+
+    </header>
+
+    <main class="job-detail-container">
+
+        <h1>{{ job.title }}</h1>
+        <p class="company-name">Empresa: {{ job.company }}</p>
+
+        <p class="job-info">
+            <span>💰 RD${{ job.salary }}</span>
+            <span>📍 {{ job.location }}</span>
+            <span>🕒 {{ job.job_type }}</span>
+        </p>
+
+        <section>
+            <h2>Descripción</h2>
+            <p>{{ job.description }}</p>
+        </section>
+
+        <section>
+            <h2>Requisitos</h2>
+            <p>{{ job.requirements }}</p>
+        </section>
+
+        <section>
+            <h2>Beneficios</h2>
+            <p>{{ job.benefits }}</p>
+        </section>
+
+        <iframe width="100%" height="250" style="border:0" loading="lazy" allowfullscreen
+            src="https://www.google.com/maps?q={{ job.location }}&output=embed">
+        </iframe>
+
+<div class="apply-form">
+    <p id="cvPreview"></p>
+    <form action="{{ url_for('apply', job_id=job.id) }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="cv" id="cvInput">
+        <button class="apply-btn">
+            📩 Confirma tu postulación
+        </button>
+        <a href="{{ url_for('home') }}" class="back-btn">
+            ⬅ Regresar a la pagina principal 
+        </a>
+    </form>
+</div>
+
+    </main>
+
+    <script>
+        document.getElementById("cvInput").addEventListener("change", function () {
+            const file = this.files[0];
+            if (file) {
+                document.getElementById("cvPreview").innerText =
+                    "📄 Archivo seleccionado: " + file.name;
+            }
+        });
+    </script>
+
+
+    <script src="{{ url_for('static', filename='js/jobs.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+/* NAVBAR */
+
+header{
+width:100%;
+background:linear-gradient(90deg,#2b0d0d,#140606);
+border-bottom:1px solid #24242e;
+}
+
+
+/* CONTENEDOR */
+
+.navbar{
+display:flex;
+align-items:center;
+padding:5px 10px;
+}
+
+
+/* LOGO */
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:20px;
+font-weight:bold;
+color:rgb(224, 67, 67);
+}
+
+.logo img{
+width:35px;
+height:35px;
+}
+
+
+/* BOTON LOGIN */
+
+.user-actions{
+    margin-left:auto; /* 👈 mueve TODO el bloque a la derecha */
+    display:flex;
+    flex-direction:row; /* 👈 los pone uno al lado del otro */
+    gap:5px; /*  controla espacio entre ellos */
+    align-items:center; /* 👈 alineados a la derecha */
+}
+
+.login-btn{
+background:#c62828;
+padding:10px 18px;
+border-radius:6px;
+text-decoration:none;
+color:white;
+font-weight:500;
+transition:all 0.2s ease;
+}
+
+.login-btn:hover{
+background:#e53935;
+transform:translateY(-2px);
+box-shadow:0 5px 15px rgba(198,40,40,0.4);
+}

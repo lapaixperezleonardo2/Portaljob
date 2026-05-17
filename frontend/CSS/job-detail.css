@@ -1,0 +1,59 @@
+.job-detail-container{
+max-width:900px;
+margin:auto;
+padding:40px;
+}
+
+/* CABECERA */
+
+.job-header{
+background:#181820;
+padding:30px;
+border-radius:10px;
+margin-bottom:30px;
+}
+
+.job-header h1{
+margin-bottom:10px;
+}
+
+.company-name{
+color:#b0b0b0;
+margin-bottom:10px;
+}
+
+.job-info{
+display:flex;
+gap:20px;
+color:#cfcfcf;
+margin-bottom:20px;
+}
+
+/* SECCIONES */
+
+.job-section{
+background:#181820;
+padding:25px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.job-section h2{
+margin-bottom:10px;
+}
+
+.job-section ul{
+padding-left:20px;
+}
+
+.job-section li{
+margin-bottom:6px;
+}
+
+/* EMPRESA */
+
+.company-section{
+background:#181820;
+padding:25px;
+border-radius:10px;
+}

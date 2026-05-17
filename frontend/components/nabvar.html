@@ -1,0 +1,19 @@
+<header class="navbar">
+
+<div class="logo">
+<img src="assets/icons/favicon-32.png">
+<span>Portal de Trabajo</span>
+</div>
+<a href="login.html" class="login-btn">Iniciar sesión</a>
+
+</header>
+
+import os
+
+mysql.connector.connect(
+    host=os.getenv("DB_HOST"),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
+    database=os.getenv("DB_NAME"),
+    port=os.getenv("DB_PORT")
+)

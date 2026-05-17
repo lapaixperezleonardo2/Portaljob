@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>infromacion de postulaciones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='assets/icons/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        src="{{ url_for('static', filename='assets/icons/favicon-32.png') }}">
+    <link rel="icon" type="image/png" sizes="64x64"
+        src="{{ url_for('static', filename='assets/icons/favicon-64.png') }}">
+</head>
+
+<body>
+
+    <h2>📩 Postulaciones</h2>
+
+    {% for app in applications %}
+    <div class="application-card">
+
+        <h3>{{ app.username }}</h3>
+        <p>{{ app.email }}</p>
+
+        {% if app.cv %}
+        <a class="cv-btn" href="{{ url_for('view_cv', filename=app.cv) }}" target="_blank">
+            📄 Ver CV
+        </a>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+
+</body>
+
+</html>

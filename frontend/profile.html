@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Perfil - Portal Job</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='assets/icons/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        src="{{ url_for('static', filename='assets/icons/favicon-32.png') }}">
+    <link rel="icon" type="image/png" sizes="64x64"
+        src="{{ url_for('static', filename='assets/icons/favicon-64.png') }}">
+</head>
+
+<body>
+
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Portal Job</h2>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="{{ url_for('home') }}">🏠 Inicio</a>
+            <a href="{{ url_for('jobs') }}">💼 Trabajos</a>
+            <a href="{{ url_for('profile_page') }}">👤 Mi perfil</a>
+            <a href="{{ url_for('favorites_page') }}">⭐ Favoritos</a>
+            <a href="{{ url_for('login_page') }}">🚪 Cerrar sesión</a>
+        </nav>
+    </div>
+    <div id="overlay" class="overlay"></div>
+
+    <header>
+
+        <div class="navbar">
+            <button id="menu-btn" class="menu-btn">☰</button>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='assets/icons/favicon-32.png') }}">
+                <span>Portal Job</span>
+            </div>
+        </div>
+
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+    <div class="flash-container">
+
+        {% for category, message in messages %}
+
+        <div class="flash-message {{ category }}">
+            {{ message }}
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+    {% endwith %}
+
+    <main class="profile-container">
+
+        <!-- INFO USUARIO -->
+
+        <section class="profile-card">
+
+            <div class="profile-top">
+
+                <div class="avatar-wrapper">
+                    <img src="{% if user.profile_image %}{{ url_for('uploaded_file', filename=user.profile_image) }}{% else %}{{ url_for('static', filename='assets/images/user.png') }}{% endif %}"
+                        class="profile-avatar" onclick="document.getElementById('fileInput').click()">
+
+                    <!-- input oculto -->
+                    <form id="avatarForm" action="{{ url_for('update_avatar') }}" method="POST"
+                        enctype="multipart/form-data">
+                        <input type="file" id="fileInput" name="profile_image" accept="image/*" hidden
+                            onchange="uploadAvatar()">
+                    </form>
+
+                </div>
+
+                <div class="profile-info">
+                    <h2>{{ user.name }} {{ user.last_name }}</h2>
+                    <p class="profile-email">{{ user.email }}</p>
+                    <p class="profile-role">Desarrollador Web</p>
+
+                </div>
+            </div>
+
+            <!-- 🔥 ESTE ES EL BLOQUE QUE QUIERES SUBIR -->
+            <div class="profile-content">
+
+                <div class="profile-left">
+                    <h3>editar cuenta</h3>
+                    <form action="{{ url_for('update_profile') }}" method="POST" class="edit-form"
+                        enctype="multipart/form-data">
+                        <input type="text" name="name" value="{{ user.name }}" required>
+                        <input type="text" name="last_name" value="{{ user.last_name }}">
+                        <input type="email" name="email" value="{{ user.email }}" required>
+
+                        <button class="edit-profile-btn">Guardar cambios</button>
+                    </form>
+                </div>
+
+                <div class="profile-right">
+                    <h3>Cambiar contraseña</h3>
+
+                    <form action="{{ url_for('change_password') }}" method="POST" class="edit-form">
+                        <input type="password" name="current_password" placeholder="Contraseña actual" required>
+                        <input type="password" name="new_password" placeholder="Nueva contraseña" required>
+                        <button class="edit-profile-btn">Actualizar contraseña</button>
+                    </form>
+
+                    <form action="{{ url_for('delete_account') }}" method="POST" onsubmit="return confirmDelete()">
+                        <button class="delete-btn">Eliminar cuenta</button>
+                    </form>
+
+                    <script>
+                        function confirmDelete() {
+                            return confirm("⚠️ ¿Estás seguro de eliminar tu cuenta?\nEsta acción NO se puede deshacer.");
+                        }
+                    </script>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- HABILIDADES -->
+
+        <div class="skills-container">
+            {% for skill in skills %}
+            <span class="skill">{{ skill.name }}</span>
+            {% endfor %}
+        </div>
+
+        {% if user.cv %}
+        <div class="cv-box">
+            <p>Curriculum cargado ✅</p>
+            <div class="cv-actions">
+                <a href="{{ url_for('view_cv', filename=user.cv) }}" target="_blank" class="view-cv-btn">
+                    Ver Curriculum
+                </a>
+                <form action="/delete-cv" method="POST">
+                    <button type="submit" class="delete-cv-btn">
+                        Eliminar CV
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        {% else %}
+        <form action="/upload-cv" method="POST" enctype="multipart/form-data">
+            <input type="file" name="cv" required>
+            <button type="submit">
+                Subir Curriculum
+            </button>
+        </form>
+        {% endif %}
+
+        {% for app in applications %}
+        <div class="application-card">
+            <h3>{{ app.username }}</h3>
+            <p>{{ app.email }}</p>
+            {% if app.cv %}
+            <a href="{{ url_for('view_cv', filename=app.cv) }}" target="_blank">
+                Ver Curriculum
+            </a>
+            {% else %}
+            <p>Sin CV</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <form action="{{ url_for('update_skills') }}" method="POST" class="skills-form">
+            <input type="text" name="skills" placeholder="Ej: HTML, CSS, JavaScript">
+            <button type="submit">Guardar habilidades</button>
+        </form>
+
+    </main>
+
+    <script>
+        function uploadAvatar() {
+            document.getElementById("avatarForm").submit();
+        }
+    </script>
+    <script>
+        setTimeout(() => {
+            const flashes = document.querySelectorAll(".flash-message");
+            flashes.forEach(flash => {
+                flash.style.transition = "0.5s";
+                flash.style.opacity = "0";
+                setTimeout(() => {
+                    flash.remove();
+                }, 500);
+            });
+        }, 3000);
+    </script>
+    <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+
+</body>
+
+</html>

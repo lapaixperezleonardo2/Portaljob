@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Portal Job</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cards.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='assets/icons/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        src="{{ url_for('static', filename='assets/icons/favicon-32.png') }}">
+    <link rel="icon" type="image/png" sizes="64x64"
+        src="{{ url_for('static', filename='assets/icons/favicon-64.png') }}">
+</head>
+
+<body>
+
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>⚙ Configuracion</h2>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="{{ url_for('profile_page') }}">👤 Mi perfil</a>
+            <a href="{{ url_for('jobs') }}">💼 Trabajos</a>
+            <a href="{{ url_for('favorites_page') }}">⭐ Favoritos</a>
+            <a href="#">📢 Soporte Tecnico</a>
+            <a href="{{ url_for('logout') }}">🚪 Cerrar sesión</a>
+        </nav>
+    </div>
+    <div id="overlay" class="overlay"></div>
+
+    <header>
+        <div class="navbar">
+            <button id="menu-btn" class="menu-btn">☰</button>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='assets/icons/favicon-32.png') }}" />
+                <span>Portal Job</span>
+            </div>
+            <div class="user-actions">
+                {% if user_name %}
+                <p class="login-btn">👋vienvenido {{ user_name }}</p>
+                <a href="{{ url_for('logout') }}" class="login-btn">Cerrar sesión</a>
+                {% else %}
+                <a href="{{ url_for('login_page') }}" class="login-btn">Iniciar sesión</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="flash-message {{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <form method="GET" action="{{ url_for('home') }}">
+        <section class="search-section">
+            <input type="text" name="search" placeholder="Buscar puesto..." />
+            <button class="filter-btn">Filtrar</button>
+        </section>
+
+        <section class="filters">
+
+            <select name="location">
+                <option value="">Todas las provincias</option>
+                <option value="Santo Domingo">Santo Domingo</option>
+                <option value="Azua">Azua</option>
+            </select>
+
+            <select name="salary">
+                <option value="">Cualquier salario</option>
+                <option value="20000">20k+</option>
+                <option value="40000">40k+</option>
+            </select>
+
+        </section>
+    </form>
+
+    <main class="home-layout">
+
+        <div class="jobs-container">
+            {% for job in jobs %}
+            <div class="job-card">
+
+                {% if job.id in favorite_jobs %}
+                <form action="{{ url_for('remove_favorite', job_id=job.id) }}" method="POST">
+                    <button>⭐ Quitar favorito</button>
+                </form>
+                {% else %}
+                <form action="{{ url_for('add_favorite', job_id=job.id) }}" method="POST">
+                    <button>☆ Guardar</button>
+                </form>
+                {% endif %}
+
+                <p>📩 {{ job.total_applications }} postulantes</p>
+
+                <h3>{{ job.title }}</h3>
+                <p>{{ job.location }}</p>
+                <p>RD${{ job.salary }}</p>
+
+                {% if job.id in applied_jobs %}
+                <form action="{{ url_for('cancel_application', job_id=job.id) }}" method="POST">
+                    <button class="apply-btn cancel-btn">Cancelar postulación</button>
+                </form>
+                {% else %}
+                <a href="{{ url_for('job_detail', id=job.id) }}">
+                    <button class="apply-btn">ver detalles y Postularse</button>
+                </a>
+                {% endif %}
+
+            </div>
+            {% endfor %}
+        </div>
+
+
+        <aside class="panel">
+            <h3>Panel Empresa</h3>
+
+            <a href="{{ url_for('jobs') }}">
+                <button type="button">📋 Administrar trabajos</button>
+            </a>
+
+            <a href="{{ url_for('create_job_page') }}">
+                <button type="button">➕ Crear trabajo</button>
+            </a>
+        </aside>
+    </main>
+
+    <footer>
+        <p>© 2026 - Desarrollado por Force Tecnology</p>
+    </footer>
+
+<script>
+setTimeout(() => {
+    const flashes = document.querySelectorAll(".flash-message");
+    flashes.forEach(flash => {
+        flash.style.transition = "0.5s";
+        flash.style.opacity = "0";
+        setTimeout(() => {
+            flash.remove();
+        }, 500);
+    });
+}, 3000);
+</script>
+    <script src="{{ url_for('static', filename='js/jobs.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+</body>
+
+</html>

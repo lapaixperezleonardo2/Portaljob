@@ -1,0 +1,11 @@
+<aside class="sidebar">
+<h3>Panel de Empresa</h3>
+<button>Crear Anuncio</button>
+<button>Mis Empleos</button>
+<button class="logout">Cerrar sesión</button>
+</aside>
+
+
+        {% if user_name %}
+        <p style="padding:10px;">👤 {{ user_name }}</p>
+        {% endif %}

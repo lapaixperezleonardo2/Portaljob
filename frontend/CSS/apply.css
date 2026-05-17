@@ -1,0 +1,83 @@
+/* CONTENEDOR DEL FORM */
+.apply-form{
+    margin-top:40px; /* 👈 más separación del contenido de arriba */
+    padding-top:20px;
+    border-top:1px solid #2a2a35; /* línea sutil pro */
+    
+    display:flex;
+    flex-direction:column;
+    gap:16px; /* 👈 espacio interno más cómodo */
+
+    background:#14141c;
+    padding:20px;
+    border-radius:10px;
+}
+
+.apply-form form{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+/* INPUT FILE */
+.apply-form input[type="file"]{
+    background:#181820;
+    border:1px solid #2a2a35;
+    padding:10px;
+    color:#aaa;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+/* BOTON POSTULAR */
+.apply-btn{
+    background:#c62828;
+    border:none;
+    padding:12px;
+    color:white;
+    font-weight:bold;
+    border-radius:6px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.apply-btn:hover{
+    background:#e53935;
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(198,40,40,0.3);
+}
+
+/* BOTON VOLVER */
+.back-btn{
+    text-align:center;
+    padding:10px;
+    border:1px solid #2a2a35;
+    border-radius:6px;
+    color:#aaa;
+    text-decoration:none;
+    transition:0.2s;
+}
+
+.back-btn:hover{
+    background:#24242e;
+    color:white;
+}
+
+.apply-form input[type="file"]::file-selector-button{
+    background:#c62828;
+    border:none;
+    padding:6px 12px;
+    color:white;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+.apply-form input[type="file"]::file-selector-button:hover{
+    background:#e53935;
+}
+
+#cvPreview{
+    margin-bottom:5px;
+    color:#aaa;
+    font-size:14px;
+} 

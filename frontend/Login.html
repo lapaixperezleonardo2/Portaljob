@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<title>Login - Portal Job</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login-styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='assets/icons/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='assets/icons/favicon-32.png') }}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='assets/icons/favicon-64.png') }}">
+</head>
+
+<body>
+<div class="login-container">
+    <h1 class="logo">Accede a Portal Job</h1>
+    <p class="subtitle">Inicia sesión en tu cuenta</p>
+
+    <form method="post" action="{{ url_for('login') }}" id="loginForm">
+
+        <div class="input-group">
+            <label>Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="input-group">
+            <label>Contraseña</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <button type="submit" class="login-btn">
+            Iniciar sesión
+        </button>
+
+    </form>
+
+<div class="logo">
+        {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div id="flash-message" class="flash">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <p class="register-text">
+        ¿No tienes cuenta? 
+        <a href="register.html">Crear cuenta</a>
+    </p>
+</div>
+
+</div>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Editar trabajo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/edit-jobs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename='assets/icons/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        src="{{ url_for('static', filename='assets/icons/favicon-32.png') }}">
+    <link rel="icon" type="image/png" sizes="64x64"
+        src="{{ url_for('static', filename='assets/icons/favicon-64.png') }}">
+</head>
+
+<body>
+        <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Portal Job</h2>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="{{ url_for('home') }}">🏠 Inicio</a>
+            <a href="{{ url_for('jobs') }}">💼 Trabajos</a>
+            <a href="{{ url_for('profile_page') }}">👤 Mi perfil</a>
+            <a href="{{ url_for('favorites_page') }}">⭐ Favoritos</a>
+            <a href="{{ url_for('login_page') }}">🚪 Cerrar sesión</a>
+        </nav>
+    </div>
+    <div id="overlay" class="overlay"></div>
+
+    <header>
+
+        <div class="navbar">
+            <button id="menu-btn" class="menu-btn">☰</button>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='assets/icons/favicon-32.png') }}">
+                <span>Portal Job</span>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="edit-job-container">
+        <h2>Editar trabajo</h2>
+        <form class="edit-job-form" method="POST" action="/update-job/{{ job.id }}">
+
+            <input type="text" name="title" value="{{ job.title }}" required>
+            <input type="text" name="location" value="{{ job.location }}" required>
+            <input type="number" name="salary" value="{{ job.salary }}" required>
+
+            <textarea placeholder="description" name="description" required>{{ job.description }} </textarea>
+            <textarea placeholder="requerimentos" name="requirements" required>{{ job.requirements }}</textarea>
+            <textarea placeholder="Beneficios" name="benefits" required>{{ job.benefits }}</textarea>
+
+            <div class="edit-buttons">
+                <button class="update-btn" type="submit">
+                    💾 Actualizar
+                </button>
+                <a class="back-btn" href="{{ url_for('jobs') }}">⬅ Volver</a>
+            </div>
+        </form>
+    </div>
+
+        <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+
+</body>
+
+</html>
