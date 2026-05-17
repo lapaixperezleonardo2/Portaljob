@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, flash
 from flask_cors import CORS
 from flask import send_from_directory
-from database import get_connection
+from backend.database import get_connection
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
