@@ -158,7 +158,7 @@ def register():
 @app.route("/login", methods=["GET","POST"])
 def login():
     if request.method == "GET":
-        return render_template("login")
+        return render_template("login.html")
 
     email = request.form["email"]
     password = request.form["password"]
@@ -184,7 +184,7 @@ def login():
         return redirect("/")
     else:
         flash("Usuario y cuenta no encontrados ❌","error")
-        return redirect("/profile")
+        return redirect("/profile.html")
 
 # =========================
 # PROFILE
@@ -192,7 +192,7 @@ def login():
 @app.route("/profile")
 def profile_page():
     if "user_id" not in session:
-        return redirect("/login")
+        return redirect("/login.html")
 
     user_id = session["user_id"]
 
