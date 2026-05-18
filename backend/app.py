@@ -12,8 +12,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(
     __name__,
-    template_folder=os.path.join(BASE_DIR, "../frontend"),
-    static_folder=os.path.join(BASE_DIR, "../frontend")
+    template_folder=os.path.join(BASE_DIR, "frontend"),
+    static_folder=os.path.join(BASE_DIR, "frontend")
 )
 
 app.secret_key = "clave_secreta"  # 🔐 NECESARIO
