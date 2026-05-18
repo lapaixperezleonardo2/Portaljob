@@ -85,7 +85,7 @@ WHERE 1=1
     conn.close()
 
     return render_template(
-        "index.html",
+        "index",
         jobs=jobs,
         applied_jobs=applied_jobs,
         favorite_jobs=favorite_jobs
@@ -155,13 +155,20 @@ def register():
 # =========================
 # LOGIN
 # =========================
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET","POST"])
 def login():
+    if request.method == "GET":
+        return render_template("login.html")
+
     email = request.form["email"]
     password = request.form["password"]
 
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
+
+    if not email or not password:
+        flash("Faltan datos", "error")
+        return redirect("/login")
 
     cursor.execute(
         "SELECT * FROM users WHERE email=%s AND password=%s",
@@ -182,7 +189,7 @@ def login():
 # =========================
 # PROFILE
 # =========================
-@app.route("/profile.html")
+@app.route("/profile")
 def profile_page():
     if "user_id" not in session:
         return redirect("/login.html")
@@ -765,7 +772,7 @@ def apply(job_id):
     user_id = session["user_id"]
 
     conn = get_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor(dictionary=True)
 
     # evitar duplicados
     cursor.execute(
