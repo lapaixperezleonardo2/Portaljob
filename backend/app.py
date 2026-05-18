@@ -85,7 +85,7 @@ WHERE 1=1
     conn.close()
 
     return render_template(
-        "index",
+        "index.html",
         jobs=jobs,
         applied_jobs=applied_jobs,
         favorite_jobs=favorite_jobs
