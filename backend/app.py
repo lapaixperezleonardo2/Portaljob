@@ -208,7 +208,7 @@ def profile_page():
 
     conn.close()
 
-    return render_template("/profile", user=user, skills=skills)
+    return render_template("profile.html", user=user, skills=skills)
 
 @app.route("/update-skills", methods=["POST"])
 def update_skills():
