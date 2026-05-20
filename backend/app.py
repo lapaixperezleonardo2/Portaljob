@@ -168,7 +168,7 @@ def login():
 
     if not email or not password:
         flash("Faltan datos", "error")
-        return redirect("/login.html")
+        return redirect("/login")
 
     cursor.execute(
         "SELECT * FROM users WHERE email=%s AND password=%s",
@@ -238,7 +238,7 @@ def update_skills():
     conn.close()
 
     flash("Habilidades actualizadas 🚀")
-    return redirect("/profile.html")
+    return redirect("/profile")
 
 @app.route("/update-profile", methods=["POST"])
 def update_profile():
@@ -270,7 +270,7 @@ def update_profile():
 
     flash("Perfil actualizado correctamente ✅", "success")
 
-    return redirect("/profile.html")
+    return redirect("/profile")
 
     # =========================
     # 📸 SUBIDA DE IMAGEN
@@ -301,7 +301,7 @@ def update_avatar():
         conn.close()
 
     flash("Perfil actualizado correctamente ✅", "success")
-    return redirect("profile.html")
+    return redirect("profile")
 
 @app.route("/delete-account", methods=["POST"])
 def delete_account():
@@ -347,7 +347,7 @@ def change_password():
     if user["password"] != current_password:
         conn.close()
         flash("Contraseña incorrecta ❌", "error")
-        return redirect("/profile.html")
+        return redirect("/profile")
 
     cursor.execute("""
         UPDATE users SET password=%s WHERE id=%s
@@ -357,7 +357,7 @@ def change_password():
     conn.close()
 
     flash("Contraseña actualizada correctamente🔐","success")
-    return redirect("profile.html")
+    return redirect("/profile")
 
 
 # =========================
