@@ -38,15 +38,15 @@ def home():
     salary = request.args.get("salary")
 
     query = """
-SELECT jobs.*, 
-(
+    SELECT jobs.*, 
+    (
     SELECT COUNT(*) 
     FROM applications 
     WHERE applications.job_id = jobs.id
-) AS total_applications
-FROM jobs
-WHERE 1=1
-"""
+    ) AS total_applications
+    FROM jobs
+    1=1
+    """
     params = []
 
     if search:
@@ -168,7 +168,7 @@ def login():
 
     if not email or not password:
         flash("Faltan datos", "error")
-        return redirect("/login")
+        return redirect("/login.html")
 
     cursor.execute(
         "SELECT * FROM users WHERE email=%s AND password=%s",
@@ -208,7 +208,7 @@ def profile_page():
 
     conn.close()
 
-    return render_template("profile.html", user=user, skills=skills)
+    return render_template("/profile", user=user, skills=skills)
 
 @app.route("/update-skills", methods=["POST"])
 def update_skills():
