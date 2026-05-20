@@ -38,15 +38,15 @@ def home():
     salary = request.args.get("salary")
 
     query = """
-    SELECT jobs.*, 
-    (
+SELECT jobs.*, 
+(
     SELECT COUNT(*) 
     FROM applications 
     WHERE applications.job_id = jobs.id
-    ) AS total_applications
-    FROM jobs
-    1=1
-    """
+) AS total_applications
+FROM jobs
+WHERE 1=1
+"""
     params = []
 
     if search:
