@@ -184,7 +184,7 @@ def login():
         return redirect("/")
     else:
         flash("Usuario y cuenta no encontrados ❌","error")
-        return redirect("/profile.html")
+        return redirect("profile.html")
 
 # =========================
 # PROFILE
