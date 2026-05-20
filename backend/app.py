@@ -149,7 +149,7 @@ def register():
     conn.commit()
     conn.close()
 
-    return redirect("/login.html")
+    return redirect("/login")
 
 
 # =========================
@@ -184,7 +184,7 @@ def login():
         return redirect("/")
     else:
         flash("Usuario y cuenta no encontrados ❌","error")
-        return redirect("profile.html")
+        return redirect("/login")
 
 # =========================
 # PROFILE
@@ -301,7 +301,7 @@ def update_avatar():
         conn.close()
 
     flash("Perfil actualizado correctamente ✅", "success")
-    return redirect("/profile.html")
+    return redirect("profile.html")
 
 @app.route("/delete-account", methods=["POST"])
 def delete_account():
@@ -357,7 +357,7 @@ def change_password():
     conn.close()
 
     flash("Contraseña actualizada correctamente🔐","success")
-    return redirect("/profile.html")
+    return redirect("profile.html")
 
 
 # =========================
@@ -651,7 +651,6 @@ def view_cv(filename):
 
 @app.route("/delete-cv", methods=["POST"])
 def delete_cv():
-
     if "user_id" not in session:
         return redirect("/login.html")
 
@@ -689,7 +688,6 @@ def delete_cv():
 
 @app.route("/upload-cv", methods=["POST"])
 def upload_cv():
-
     if "user_id" not in session:
         return redirect("/login.html")
 
@@ -734,7 +732,7 @@ def upload_cv():
 # =========================
 @app.route("/applications/<int:job_id>")
 def view_applications(job_id):
-
+    
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
 
@@ -765,7 +763,6 @@ def view_applications(job_id):
 
 @app.route("/apply/<int:job_id>", methods=["POST"])
 def apply(job_id):
-
     if "user_id" not in session:
         return redirect("/login.html")
 
