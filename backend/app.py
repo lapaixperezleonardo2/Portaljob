@@ -227,7 +227,6 @@ def update_skills():
     # 🔥 insertar nuevas habilidades
     if skills:
         skills_list = skills.split(",")
-
         for skill in skills_list:
             cursor.execute(
                 "INSERT INTO skills (user_id, name) VALUES (%s, %s)",
@@ -301,7 +300,7 @@ def update_avatar():
         conn.close()
 
     flash("Perfil actualizado correctamente ✅", "success")
-    return redirect("profile")
+    return redirect("/profile")
 
 @app.route("/delete-account", methods=["POST"])
 def delete_account():
@@ -684,7 +683,7 @@ def delete_cv():
 
     flash("Curriculum eliminado correctamente", "success")
 
-    return redirect("/profile.html")
+    return redirect("/profile")
 
 @app.route("/upload-cv", methods=["POST"])
 def upload_cv():
@@ -724,7 +723,7 @@ def upload_cv():
 
     flash("CV subido correctamente", "success")
 
-    return redirect("/profile.html")
+    return redirect("/profile")
 
 
 # =========================
