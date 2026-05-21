@@ -763,7 +763,7 @@ def view_applications(job_id):
 @app.route("/apply/<int:job_id>", methods=["POST"])
 def apply(job_id):
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -797,18 +797,6 @@ def apply(job_id):
         "INSERT INTO applications (user_id, job_id) VALUES (%s, %s)",
         (user_id, job_id)
     )
-
-    cursor.execute("""
-    SELECT
-    applications.id,
-    users.name,
-    users.email,
-    users.cv
-    FROM applications
-    JOIN users
-    ON applications.user_id = users.id
-    WHERE applications.job_id=%s
-    """, (job_id,))
 
     conn.commit()
     conn.close()
