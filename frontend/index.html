@@ -47,7 +47,7 @@
                 <p class="login-btn">👋bienvenido {{ user_name }}</p>
                 <a href="{{ url_for('logout') }}" class="login-btn">Cerrar sesión</a>
                 {% else %}
-                <a href="{{ url_for('login_page') }}" class="login-btn">Iniciar sesión</a>
+                <a href="{{ url_for('login') }}" class="login-btn">Iniciar sesión</a>
                 {% endif %}
             </div>
         </div>
