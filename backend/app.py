@@ -801,7 +801,7 @@ def apply(job_id):
     cursor.execute("""
     SELECT
     applications.id,
-    users.username,
+    users.name,
     users.email,
     users.cv
     FROM applications

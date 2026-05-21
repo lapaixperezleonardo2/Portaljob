@@ -167,7 +167,7 @@
 
         {% for app in applications %}
         <div class="application-card">
-            <h3>{{ app.username }}</h3>
+            <h3>{{ app.name }}</h3>
             <p>{{ app.email }}</p>
             {% if app.cv %}
             <a href="{{ url_for('view_cv', filename=app.cv) }}" target="_blank">
