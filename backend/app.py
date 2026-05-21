@@ -519,6 +519,8 @@ def update_job(id):
 
     title = request.form["title"]
     description = request.form["description"]
+    requirements = request.form["requirements"]
+    benefits = request.form["benefits"]
     salary = request.form["salary"]
     location = request.form["location"]
 
