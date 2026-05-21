@@ -114,18 +114,6 @@ def cancel_application(job_id):
 
     return redirect("/")
 
-@app.route("/login.html")
-def login_page():
-    return render_template("login.html")
-
-@app.route("/register.html")
-def register_page():
-    return render_template("register.html")
-
-@app.route("/jobs.html")
-def jobs_page():
-    return render_template("jobs.html")
-
 
 # =========================
 # REGISTER

@@ -44,7 +44,7 @@
             </div>
             <div class="user-actions">
                 {% if user_name %}
-                <p class="login-btn">👋vienvenido {{ user_name }}</p>
+                <p class="login-btn">👋bienvenido {{ user_name }}</p>
                 <a href="{{ url_for('logout') }}" class="login-btn">Cerrar sesión</a>
                 {% else %}
                 <a href="{{ url_for('login_page') }}" class="login-btn">Iniciar sesión</a>
