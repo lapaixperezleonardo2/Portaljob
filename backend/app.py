@@ -224,7 +224,7 @@ def update_skills():
     conn.commit()
     conn.close()
 
-    flash("Habilidades actualizadas 🚀")
+    flash("Habilidades actualizadas 🚀" "success")
     return redirect("/profile")
 
 @app.route("/update-profile", methods=["POST"])
@@ -487,7 +487,7 @@ def my_jobs():
 
     conn.close()
 
-    return render_template("my-jobs.html", jobs=jobs)
+    return render_template("jobs.html", my_jobs=jobs)
 
 # =========================
 # EDITOR DEL CARDS
