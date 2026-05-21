@@ -118,7 +118,7 @@ def cancel_application(job_id):
 # =========================
 # REGISTER
 # =========================
-@app.route("/register", methods=["POST"])
+@app.route("/register", methods=["GET","POST"])
 def register():
     name = request.form["name"]
     last_name = request.form.get("last_name")  # opcional
