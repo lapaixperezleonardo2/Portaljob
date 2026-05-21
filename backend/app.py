@@ -97,7 +97,7 @@ WHERE 1=1
 @app.route("/cancel/<int:job_id>", methods=["POST"])
 def cancel_application(job_id):
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -180,7 +180,7 @@ def login():
 @app.route("/profile")
 def profile_page():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -201,7 +201,7 @@ def profile_page():
 @app.route("/update-skills", methods=["POST"])
 def update_skills():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
     skills = request.form.get("skills")  # "HTML,CSS,JS"
@@ -230,7 +230,7 @@ def update_skills():
 @app.route("/update-profile", methods=["POST"])
 def update_profile():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -266,7 +266,7 @@ def update_profile():
 @app.route("/update-avatar", methods=["POST"])
 def update_avatar():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -274,7 +274,12 @@ def update_avatar():
 
     if image and image.filename != "":
         filename = secure_filename(image.filename)
+
+        # crear carpeta si no existe
+        os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+
         image_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+
         image.save(image_path)
 
         conn = get_connection()
@@ -293,7 +298,7 @@ def update_avatar():
 @app.route("/delete-account", methods=["POST"])
 def delete_account():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -318,7 +323,7 @@ def delete_account():
 @app.route("/change-password", methods=["POST"])
 def change_password():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -362,7 +367,7 @@ def logout():
 @app.route("/jobs")
 def jobs():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -407,7 +412,7 @@ def job_detail(id):
 @app.route("/create-job", methods=["POST"])
 def create_job():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     title = request.form["title"]
     description = request.form["description"]
@@ -436,7 +441,7 @@ def create_job():
 @app.route("/create-job-page")
 def create_job_page():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     return render_template("create-job.html")
 
@@ -446,7 +451,7 @@ def create_job_page():
 @app.route("/delete-job/<int:id>", methods=["POST"])
 def delete_job(id):
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -470,7 +475,7 @@ def delete_job(id):
 @app.route("/my-jobs")
 def my_jobs():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -490,7 +495,7 @@ def my_jobs():
 @app.route("/edit-job/<int:id>")
 def edit_job_page(id):
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
@@ -508,7 +513,7 @@ def edit_job_page(id):
 @app.route("/update-job/<int:id>", methods=["POST"])
 def update_job(id):
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -537,7 +542,7 @@ def update_job(id):
 @app.route("/favorite/<int:job_id>", methods=["POST"])
 def add_favorite(job_id):
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -570,7 +575,7 @@ def add_favorite(job_id):
 @app.route("/favorites")
 def favorites_page():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -595,7 +600,7 @@ def favorites_page():
 @app.route("/unfavorite/<int:job_id>", methods=["POST"])
 def remove_favorite(job_id):
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     user_id = session["user_id"]
 
@@ -618,7 +623,7 @@ def remove_favorite(job_id):
 @app.route("/dashboard")
 def dashboard():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     return render_template("profile.html")  # o dashboard.html
 
@@ -639,7 +644,7 @@ def view_cv(filename):
 @app.route("/delete-cv", methods=["POST"])
 def delete_cv():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
@@ -676,7 +681,7 @@ def delete_cv():
 @app.route("/upload-cv", methods=["POST"])
 def upload_cv():
     if "user_id" not in session:
-        return redirect("/login.html")
+        return redirect("/login")
 
     cv = request.files.get("cv")
 
