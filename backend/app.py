@@ -120,6 +120,9 @@ def cancel_application(job_id):
 # =========================
 @app.route("/register", methods=["GET","POST"])
 def register():
+    if request.method == "GET":
+        return render_template("register.html")
+
     name = request.form["name"]
     last_name = request.form.get("last_name")  # opcional
     email = request.form["email"]
